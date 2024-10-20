@@ -24,6 +24,10 @@
   <string name="common_word_close_others">Close Others</string>
   <string name="common_word_close_all">Close All</string>
   <string name="common_word_templates">Templates</string>
+  <string name="common_word_delete">Delete</string>
+  <string name="common_word_new_file">New file</string>
+  <string name="common_word_new_folder">New folder</string>
+  <string name="common_word_rename">Rename</string>
   <!-- end section -->
 
   <!-- links section -->

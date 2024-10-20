@@ -93,7 +93,7 @@ class FileTreeAdapter(private val context: Context, val fileTree: FileTree) :
             val adapterPosition = holder.adapterPosition
             if (adapterPosition != RecyclerView.NO_POSITION) {
                 val clickedNode = getItem(adapterPosition)
-                onLongClickListener?.onLongClick(clickedNode)
+                onLongClickListener?.onLongClick(clickedNode, holder.itemView)
             }
             true
         }

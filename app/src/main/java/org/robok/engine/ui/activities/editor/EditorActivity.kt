@@ -56,6 +56,7 @@ import org.robok.engine.feature.treeview.provider.DefaultFileIconProvider
 import org.robok.engine.feature.treeview.provider.FileWrapper
 import org.robok.engine.manage.project.ProjectManager
 import org.robok.engine.strings.Strings
+import org.robok.engine.Menus
 import org.robok.engine.ui.activities.base.RobokActivity
 import org.robok.engine.ui.activities.editor.diagnostic.DiagnosticFragment
 import org.robok.engine.ui.activities.editor.event.EditorEvent
@@ -312,6 +313,15 @@ class EditorActivity :
                 }
             }
         )
+        binding.fileTree.setOnFileLongClickListener(
+            object : FileLongClickListener {
+                override fun onLongClick(node: Node<FileObject>, v: View) {
+                    if (node.value.isDirectory())
+                        getDirOptions()
+                    else
+                    
+                }
+            }
         binding.fileTree.setIconProvider(DefaultFileIconProvider(this))
     }
 
@@ -324,6 +334,46 @@ class EditorActivity :
                     Intent(this@EditorActivity, ModelingActivity::class.java)
                 ) // open 3d modeling (todo: send args)
             else -> editorViewModel.openFile(fileToOpen) // open file on editor
+        }
+    }
+    
+    private fun getDirOptions(view: View) {
+        val popupMenu: PopupMenu(this, view)
+        
+        popupMenu.menuInflater.inflate(Menus.menu_directory_options, popupMenu.menu)
+        
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                Ids.item_delete -> {
+                    
+                }
+                Ids.item_new_file -> {
+                    
+                }
+                Ids.item_new_folder -> {
+                    
+                }
+                Ids.item_rename -> {
+                    
+                }
+            }
+        }
+    }
+    
+    private fun getFileOptions(view: View) {
+        val popupMenu: PopupMenu(this, view)
+        
+        popupMenu.menuInflater.inflate(Menus.menu_file_options, popupMenu.menu)
+        
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                Ids.item_delete -> {
+                    
+                }
+                Ids.item_rename -> {
+                    
+                }
+            }
         }
     }
 

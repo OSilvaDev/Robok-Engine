@@ -29,4 +29,6 @@ typealias Colors = org.robok.engine.R.color
 
 typealias Layouts = org.robok.engine.R.layout
 
+typealias Menus = org.robok.engine.R.menu
+
 typealias Mipmaps = org.robok.engine.R.mipmap
