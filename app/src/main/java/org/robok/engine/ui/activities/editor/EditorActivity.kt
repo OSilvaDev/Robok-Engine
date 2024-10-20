@@ -316,10 +316,11 @@ class EditorActivity :
         binding.fileTree.setOnFileLongClickListener(
             object : FileLongClickListener {
                 override fun onLongClick(node: Node<FileObject>, v: View) {
-                    if (node.value.isDirectory())
+                    if (node.value.isDirectory()) {
                         getDirOptions()
-                    else
-                    
+                    } else {
+                        getFileOptions()
+                    }
                 }
             }
         binding.fileTree.setIconProvider(DefaultFileIconProvider(this))
