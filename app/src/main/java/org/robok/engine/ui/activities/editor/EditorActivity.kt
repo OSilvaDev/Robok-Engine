@@ -340,7 +340,7 @@ class EditorActivity :
     }
     
     private fun getDirOptions(view: View) {
-        val popupMenu: PopupMenu(this, view)
+        val popupMenu = PopupMenu(this, view)
         
         popupMenu.menuInflater.inflate(Menus.menu_directory_options, popupMenu.menu)
         
