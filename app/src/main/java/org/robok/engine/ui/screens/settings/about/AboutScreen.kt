@@ -44,7 +44,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import coil.compose.SubcomposeAsyncImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -52,6 +51,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.koin.androidx.compose.koinViewModel
+import coil.compose.AsyncImage
 import org.robok.engine.Drawables
 import org.robok.engine.core.components.Screen
 import org.robok.engine.core.components.preferences.base.PreferenceGroup
@@ -74,7 +74,8 @@ fun AboutScreen(version: String) {
     LaunchedEffect(Unit) {
         scope.launch {
             contributors = fetchContributors()
-            contributorsState.value = contributors
+            contributorsState.value =
+                if (contributors.isEmpty()) DefaultContributors() else contributors
         }
     }
 
@@ -128,7 +129,7 @@ fun AboutScreen(version: String) {
             Spacer(modifier = Modifier.requiredHeight(16.dp))
         }
 
-        if (contributors.isNotEmpty()) {
+        if (contributorsState.value.isNotEmpty()) {
             val roles = contributorsState.value.groupBy { it.role }
             roles.forEach { (role, contributorsList) ->
                 PreferenceGroup(heading = role) {
@@ -186,14 +187,16 @@ fun ContributorRow(dataInfo: Contributor) {
         description = { Text(text = dataInfo.role) },
         modifier = Modifier.clickable(onClick = { uriHandler.openUri(dataInfo.html_url) }),
         startWidget = {
-            SubcomposeAsyncImage(
-                model = dataInfo.avatar_url,
+            val avatarUrl =
+                if (dataInfo.avatar_url.isNullOrEmpty()) Drawables.ic_nerd else dataInfo.avatar_url
+            AsyncImage(
+                model = avatarUrl,
                 contentDescription = null,
+                placeholder = painterResource(Drawables.ic_nerd),
                 modifier =
                     Modifier.clip(CircleShape)
                         .size(32.dp)
-                        .background(MaterialTheme.colorScheme.surfaceContainer),
-                loading = { Box(modifier = Modifier.fillMaxSize()) },
+                        .background(MaterialTheme.colorScheme.surfaceContainer)
             )
         },
     )

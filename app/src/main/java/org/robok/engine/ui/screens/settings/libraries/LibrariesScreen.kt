@@ -18,22 +18,17 @@ package org.robok.engine.ui.screens.settings.libraries
  */
 
 import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.util.withContext
 import org.robok.engine.core.components.Screen
 import org.robok.engine.core.components.preferences.base.PreferenceGroup
-import org.robok.engine.core.components.preferences.base.PreferenceTemplate
 import org.robok.engine.strings.Strings
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,12 +36,12 @@ import org.robok.engine.strings.Strings
 fun LibrariesScreen() {
     val context = LocalContext.current
     Screen(label = stringResource(id = Strings.settings_libraries_title)) {
-        PreferenceGroup { librariesScreen(context) }
+        PreferenceGroup { Screen(context) }
     }
 }
 
 @Composable
-fun librariesScreen(context: Context) {
+private fun Screen(context: Context) {
     val uriHandler = LocalUriHandler.current
     val libs = remember { mutableStateOf<Libs?>(null) }
     libs.value = Libs.Builder().withContext(context).build()
@@ -58,24 +53,10 @@ fun librariesScreen(context: Context) {
             onClick = {
                 library.website?.let {
                     if (it.isNotEmpty()) {
-                        uriHandler.openUri(it)
+                        // dont open for now uriHandler.openUri(it)
                     }
                 }
             },
         )
     }
-}
-
-@Composable
-fun LibraryItem(library: Library, onClick: () -> Unit) {
-    PreferenceTemplate(
-        modifier = Modifier.clickable(onClick = onClick).padding(8.dp),
-        title = { LibraryItemTitle(library.name) },
-    )
-}
-
-@Composable
-fun LibraryItemTitle(title: String?) {
-    title?.let { Text(text = it, color = MaterialTheme.colorScheme.onSurface) }
-        ?: Text(text = "No Title Available", color = MaterialTheme.colorScheme.onSurface)
 }
