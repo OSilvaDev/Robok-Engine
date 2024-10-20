@@ -25,6 +25,8 @@ typealias Fonts = org.robok.engine.R.font
 
 typealias Styles = org.robok.engine.R.style
 
+typealias Attrs = org.robok.engine.R.attr
+
 typealias Colors = org.robok.engine.R.color
 
 typealias Layouts = org.robok.engine.R.layout

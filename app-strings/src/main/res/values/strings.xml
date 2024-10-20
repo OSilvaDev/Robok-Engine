@@ -109,6 +109,7 @@
   <string name="text_view_layout">View GUI</string>
   <string name="text_saved">Saved!</string>
   <string name="text_saved_all">All Saved!</string>
+  <string name="text_deleted">Deleted!</string>
   <string name="text_see_code">See Code</string>
   <!-- end section -->
 

@@ -36,6 +36,8 @@ import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.snackbar.Snackbar
 import io.github.rosemoe.sora.lang.diagnostic.DiagnosticRegion
 import java.io.File
 import java.util.concurrent.CompletableFuture
@@ -319,9 +321,9 @@ class EditorActivity :
             object : FileLongClickListener {
                 override fun onLongClick(node: Node<FileObject>, view: View) {
                     if (node.value.isDirectory()) {
-                        getDirOptions(view)
+                        getDirOptions(view, node)
                     } else {
-                        getFileOptions(view)
+                        getFileOptions(view, node)
                     }
                 }
             }
@@ -341,7 +343,7 @@ class EditorActivity :
         }
     }
     
-    private fun getDirOptions(view: View) {
+    private fun getDirOptions(view: View, node: Node<FileObject>) {
         val popupMenu = PopupMenu(this, view)
         
         popupMenu.menuInflater.inflate(Menus.menu_directory_options, popupMenu.menu)
@@ -353,6 +355,7 @@ class EditorActivity :
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 Ids.item_delete -> {
+                    deleteFile(node.value.getAbsolutePath())
                     true
                 }
                 Ids.item_new_file -> {
@@ -371,7 +374,7 @@ class EditorActivity :
         popupMenu.show()
     }
     
-    private fun getFileOptions(view: View) {
+    private fun getFileOptions(view: View, node: Node<FileObject>) {
         val popupMenu = PopupMenu(this, view)
         
         popupMenu.menuInflater.inflate(Menus.menu_file_options, popupMenu.menu)
@@ -383,6 +386,7 @@ class EditorActivity :
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 Ids.item_delete -> {
+                    deleteFile(node.value.getAbsolutePath())
                     true
                 }
                 Ids.item_rename -> {
@@ -610,7 +614,9 @@ class EditorActivity :
     private fun saveFile() {
         getCurrentEditor()?.let { editor ->
             FileUtil.writeFile(editor.getFile().absolutePath, editor.getText().toString())
-            Toast.makeText(this, getString(Strings.text_saved), Toast.LENGTH_SHORT).show()
+            Snackbar.make(binding.appbar, getString(Strings.text_saved), Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(MaterialColors.getColor(view, Attrs.colorPrimary))
+                .show()
         }
     }
 
@@ -624,6 +630,14 @@ class EditorActivity :
             }
         }
         Toast.makeText(this, getString(Strings.text_saved_all), Toast.LENGTH_SHORT).show()
+    }
+    
+    private fun deleteFile(path: String) {
+        FileUtil.deleteFile(path)
+        Snackbar.make(binding.appbar, getString(Strings.text_deleted), Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(MaterialColors.getColor(view, Attrs.colorPrimary))
+                .show()
+        binding.fileTree.reloadFileTree()
     }
 
     fun getCurrentEditor(): RobokCodeEditor? {
