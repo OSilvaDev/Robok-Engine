@@ -323,6 +323,7 @@ class EditorActivity :
                     }
                 }
             }
+        )
         binding.fileTree.setIconProvider(DefaultFileIconProvider(this))
     }
 
