@@ -376,6 +376,10 @@ class EditorActivity :
         
         popupMenu.menuInflater.inflate(Menus.menu_file_options, popupMenu.menu)
         
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            popupMenu.gravity = Gravity.END
+        }
+        
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 Ids.item_delete -> {
