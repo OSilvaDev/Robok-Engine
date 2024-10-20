@@ -348,19 +348,21 @@ class EditorActivity :
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 Ids.item_delete -> {
-                    
+                    true
                 }
                 Ids.item_new_file -> {
-                    
+                    true
                 }
                 Ids.item_new_folder -> {
-                    
+                    true
                 }
                 Ids.item_rename -> {
-                    
+                    true
                 }
             }
         }
+        
+        popupMenu.show()
     }
     
     private fun getFileOptions(view: View) {
@@ -371,13 +373,15 @@ class EditorActivity :
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 Ids.item_delete -> {
-                    
+                    true
                 }
                 Ids.item_rename -> {
-                    
+                    true
                 }
             }
         }
+        
+        popupMenu.show()
     }
 
     private fun updateUndoRedo() {
