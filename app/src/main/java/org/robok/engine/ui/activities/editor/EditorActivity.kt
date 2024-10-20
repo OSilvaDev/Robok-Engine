@@ -24,6 +24,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.util.SparseArray
 import android.view.View
 import android.widget.Toast
@@ -344,6 +345,10 @@ class EditorActivity :
         val popupMenu = PopupMenu(this, view)
         
         popupMenu.menuInflater.inflate(Menus.menu_directory_options, popupMenu.menu)
+        
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            popupMenu.gravity = Gravity.END
+        }
         
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
