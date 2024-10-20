@@ -315,11 +315,11 @@ class EditorActivity :
         )
         binding.fileTree.setOnFileLongClickListener(
             object : FileLongClickListener {
-                override fun onLongClick(node: Node<FileObject>, v: View) {
+                override fun onLongClick(node: Node<FileObject>, view: View) {
                     if (node.value.isDirectory()) {
-                        getDirOptions()
+                        getDirOptions(view)
                     } else {
-                        getFileOptions()
+                        getFileOptions(view)
                     }
                 }
             }
