@@ -363,7 +363,7 @@ class EditorActivity :
     }
     
     private fun getFileOptions(view: View) {
-        val popupMenu: PopupMenu(this, view)
+        val popupMenu = PopupMenu(this, view)
         
         popupMenu.menuInflater.inflate(Menus.menu_file_options, popupMenu.menu)
         
