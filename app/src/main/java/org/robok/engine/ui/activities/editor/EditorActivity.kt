@@ -359,6 +359,7 @@ class EditorActivity :
                 Ids.item_rename -> {
                     true
                 }
+                else -> false
             }
         }
         
@@ -378,6 +379,7 @@ class EditorActivity :
                 Ids.item_rename -> {
                     true
                 }
+                else -> false
             }
         }
         
