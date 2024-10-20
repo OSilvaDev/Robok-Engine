@@ -50,6 +50,7 @@ import org.robok.engine.feature.compiler.CompilerTask
 import org.robok.engine.feature.editor.EditorListener
 import org.robok.engine.feature.editor.RobokCodeEditor
 import org.robok.engine.feature.treeview.interfaces.FileClickListener
+import org.robok.engine.feature.treeview.interfaces.FileLongClickListener
 import org.robok.engine.feature.treeview.interfaces.FileObject
 import org.robok.engine.feature.treeview.model.Node
 import org.robok.engine.feature.treeview.provider.DefaultFileIconProvider
